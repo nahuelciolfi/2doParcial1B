@@ -33,5 +33,37 @@ class Enemigo:
             self.animar(pantalla)
             self.avanzar()
 
-    
+    def aplicar_gravedad(self, pantalla, plataformas):
+        if self.esta_saltando:
+            self.animar(pantalla)
+            self.rectangulo_principal.y += self.desplazamiento_y
+            if self.desplazamiento_y + self.gravedad < self.limite_velocidad_salto:
+                self.desplazamiento_y += self.gravedad
+            
+        for piso in plataformas:
+            if self.rectangulo_principal.colliderect(piso["rectangulo"]):
+                self.desplazamiento_y = 0
+                self.esta_saltando = False
+                self.rectangulo_principal.bottom = piso["rectangulo"].top
+                break
+            else:
+                self.esta_saltando = True
+
+    def checkeo_sprite_choca_borde_pantalla(self, pantalla):
+        x = self.rectangulo_principal.x
+        y = self.rectangulo_principal.y
+        width = self.rectangulo_principal.width
+        height = self.rectangulo_principal.height
+
+        return (x <= 0 or x + width >= screen_width or
+            y <= 0 or y + height >= screen_height)
+
+    def rebote_sprite(self):
+        self.desplazamiento_x, self.desplazamiento_y = self.velocidad
+
+        rebote_velocidad = -1 * self.desplazamiento_x 
+
+        if self.rectangulo_principal.x <= 0 or self.rectangulo_principal.x + sprite.rectangulo_width >= screen_width: 
+            self.velocidad = (rebote_velocidad, self.desplazamiento_y)
+
 

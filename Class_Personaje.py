@@ -5,15 +5,16 @@ class Personaje:
     def __init__(self, animaciones, tamaño, pos_x, pos_y, velocidad) -> None:
         self.animaciones = animaciones
         reescalar_imagenes(self.animaciones, *tamaño)
-        self.rectangulo_principal = self.animaciones["Quieto"][0].get_rect()
+        self.rectangulo_principal = self.animaciones["Quieto_Derecha"][0].get_rect()
         self.rectangulo_principal.x = pos_x
         self.rectangulo_principal.y = pos_y
         self.velocidad = velocidad
 
         self.que_hace = "Quieto"
         self.contador_pasos = 0
-        self.animacion_actual = self.animaciones["Quieto"]
+        self.animacion_actual = self.animaciones["Quieto_Derecha"]
 
+        ###################### SALTO ####################
         self.desplazamiento_y = 0
         self.potencia_salto = -15
         self.limite_velocidad_salto = 15
@@ -24,8 +25,7 @@ class Personaje:
     def actualizar(self, pantalla, piso):
         match self.que_hace:
             case "Derecha":
-                if not self.esta_saltando:
-                     
+                if not self.esta_saltando:                     
                     self.animacion_actual  = self.animaciones["Derecha"]
                     self.animar(pantalla)
                 self.caminar(pantalla)
@@ -37,8 +37,12 @@ class Personaje:
                 self.caminar(pantalla)
 
             case "Quieto":
-                self.animacion_actual  = self.animaciones["Quieto"]
-                self.animar(pantalla)
+                #if flag_izquierda == False:
+                    self.animacion_actual  = self.animaciones["Quieto_Derecha"]
+                    self.animar(pantalla)
+                #else: 
+                #    self.animacion_actual = self.animaciones["Quieto_Izquierda"]
+                #    self.animar(pantalla)
             case "Salta":
                 if not self.esta_saltando:
                     self.esta_saltando = True

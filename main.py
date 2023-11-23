@@ -17,7 +17,7 @@ PANTALLA = py.display.set_mode((W,H)) # En pixeles
 py.display.set_caption("Juego robot")
 
 ##############################################     FONDO LVL 1     ############################################################################################               
-fondo = py.image.load(r"2C 1°\Segundo Parcial\fondo.jpg")#.convert()
+fondo = py.image.load(r"2C 1º\Segundo Parcial\fondo 4.jpg")#.convert()
 fondo = py.transform.scale(fondo, (W,H))
 
 
@@ -40,7 +40,8 @@ def crear_plataforma(visible, tamaño,  x,  y, path=""):
 ############################################## PERSONAJE ####################################################################################################
 contador_pasos = 0
 diccionario = {}
-diccionario["Quieto"] = personaje_quieto
+diccionario["Quieto_Derecha"] = personaje_quieto_derecha
+diccionario["Quieto_Izquierda"] = personaje_quieto_izquierda
 diccionario["Derecha"] = personaje_camina_derecha
 diccionario["Izquierda"] = personaje_camina_izquierda
 diccionario["Salta"] = personaje_salta
@@ -50,12 +51,14 @@ reescalar_imagenes(diccionario, 80, 70)
 
 
 ############################################# PISO ##########################################################################################################
-piso = crear_plataforma(True, (W,20), 0, H-60, r"2C 1°\Segundo Parcial\fondo.jpg")
-
+piso = crear_plataforma(True, ((1300,668)), 0, 657 , r"2C 1º\Segundo Parcial\fondo 4.jpg")
+plataforma_1 = crear_plataforma(True, ((280, 624)), 356, 624, r"2C 1º\Segundo Parcial\fondo 4.jpg")
+plataforma_2 = crear_plataforma(True, ((300, 620)), 1010, 624, r"2C 1º\Segundo Parcial\fondo 4.jpg")
+ 
 
 ############################################## PLATAFORMAS ####################################################################################################
 
-plataformas= [piso]
+plataformas= [piso, plataforma_1, plataforma_2]
 
 ########################################### ENEMIGOS #######################################################################################################
 diccionario_animaciones = {"izquierda": enemigo_camina, "Muere": enemigo_muere}
@@ -67,14 +70,14 @@ lista_enemigos = [un_enemigo]
 
 x_inicial = W//2 - 400
 y_inicial = 560
-rectangulo_personaje = personaje_quieto[0].get_rect()
+rectangulo_personaje = personaje_quieto_derecha[0].get_rect()
 rectangulo_personaje.x = x_inicial
 rectangulo_personaje.y = y_inicial
 
-que_hace = "Quieto"
+que_hace = "Quieto_Derecha"
 
 ############################################ CFG ##############################################################################################################
-
+flag_izquierda = False
 flag = True
 while flag:
     RELOJ.tick(FPS)
@@ -92,13 +95,17 @@ while flag:
     if teclas[py.K_RIGHT]:
         robot.que_hace = "Derecha"
     elif teclas[py.K_LEFT]:
-        robot.que_hace = "Izquierda"
+        robot.que_hace == "Izquierda"
+        flag_izquierda == True
     elif(teclas[py.K_SPACE]):
         robot.que_hace = "Salta"
 
 
     else:
-       robot.que_hace = "Quieto"
+        if flag_izquierda == True: 
+            robot.que_hace = "Quieto_Izquierda"
+        else: 
+            robot.que_hace = "Quieto_Derecha"
 
     PANTALLA.blit(fondo,(0,0))
     robot.verificar_colision_enemigo(lista_enemigos, PANTALLA)
@@ -108,13 +115,13 @@ while flag:
 
 
 
-# if obtener_modo():
+if obtener_modo():
         
-#         #py.draw.rect(PANTALLA, "yellow", piso, 3)
-#         py.draw.rect(PANTALLA, "blue", robot.rectangulo_principal,3)
+         py.draw.rect(PANTALLA, "yellow", piso, 3)
+         py.draw.rect(PANTALLA, "blue", robot.rectangulo_principal,3)
 
-#         for plataforma in plataformas:
-#             py.draw.rect(PANTALLA, "red", plataforma["rectangulo"], 3)
+         for plataforma in plataformas:
+             py.draw.rect(PANTALLA, "red", plataforma["rectangulo"], 3)
 
 
 py.quit()

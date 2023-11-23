@@ -6,60 +6,63 @@ def reescalar_imagenes(diccionario_animaciones, ancho, alto):
             img = diccionario_animaciones[clave][i]
             diccionario_animaciones[clave][i] = py.transform.scale(img, (ancho,alto))
 
-def rotar_imagen(imagenes:list):
-    lista_imagenes = []
-    for i in range(len(imagenes)):
-        imagen_rotada = py.transform.flip(imagenes[i],True,False)
-        lista_imagenes.append(imagen_rotada)
+def rotar_imagen(lista_original,flip_x,flip_y):
+    lista_girada = []
+    for img in lista_original:
+        lista_girada.append(py.transform.flip(img, flip_x, flip_y))
+        
+    return lista_girada
     
-    return lista_imagenes
+    
 ################################## SPRITE PJ ###############################################################################################
-personaje_quieto = [py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (1).png"), 
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (2).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (3).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (4).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (5).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (6).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (7).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (8).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (9).png"),
-                    py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Idle (10).png")]
+personaje_quieto_derecha = [py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (1).png"), 
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (2).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (3).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (4).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (5).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (6).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (7).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (8).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (9).png"),
+                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (10).png")]
 
-personaje_camina_derecha = [py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (1).png"),
-                            py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (2).png"),
-                            py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (3).png"),
-                            py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (4).png"),
-                            py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (5).png"),
-                            py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (6).png"),
-                            py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (7).png"),
-                            py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Run (8).png")]
+personaje_quieto_izquierda = rotar_imagen(personaje_quieto_derecha, True, False)
 
-personaje_camina_izquierda = rotar_imagen(personaje_camina_derecha)
+personaje_camina_derecha = [py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (1).png"),
+                            py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (2).png"),
+                            py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (3).png"),
+                            py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (4).png"),
+                            py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (5).png"),
+                            py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (6).png"),
+                            py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (7).png"),
+                            py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Run (8).png")]
 
-personaje_salta = [py.image.load(r"2C 1°\Segundo Parcial\Sprites Robot\png\Jump (7).png")]
+personaje_camina_izquierda = rotar_imagen(personaje_camina_derecha, True, False)
+
+personaje_salta = [py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Jump (7).png")]
 
 ############################################## SPRITE ENEMIGO ##################################################
 
-enemigo_camina = [py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (1).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (2).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (3).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (4).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (5).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (6).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (7).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (8).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (9).png"),
-                  py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Walk (10).png")]
+enemigo_camina = [py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (1).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (2).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (3).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (4).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (5).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (6).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (7).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (8).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (9).png"),
+                  py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Walk (10).png")]
 
-enemigo_muere = [py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (1).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (2).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (3).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (4).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (5).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (6).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (7).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (8).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (9).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (10).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (11).png"),
-                 py.image.load(r"2C 1°\Segundo Parcial\Sprites Zombie\png\male\Dead (12).png")]
+enemigo_muere = [py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (1).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (2).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (3).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (4).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (5).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (6).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (7).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (8).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (9).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (10).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (11).png"),
+                 py.image.load(r"2C 1º\Segundo Parcial\Sprites Zombie\male\Dead (12).png")]
