@@ -17,7 +17,7 @@ PANTALLA = py.display.set_mode((W,H)) # En pixeles
 py.display.set_caption("Juego robot")
 
 ##############################################     FONDO LVL 1     ############################################################################################               
-fondo = py.image.load(r"2C 1º\Segundo Parcial\fondo 4.jpg")#.convert()
+fondo = py.image.load(r"fondo 4.jpg")#.convert()
 fondo = py.transform.scale(fondo, (W,H))
 
 
@@ -51,9 +51,9 @@ reescalar_imagenes(diccionario, 80, 70)
 
 
 ############################################# PISO ##########################################################################################################
-piso = crear_plataforma(True, ((1300,668)), 0, 657 , r"2C 1º\Segundo Parcial\fondo 4.jpg")
-plataforma_1 = crear_plataforma(True, ((280, 624)), 356, 624, r"2C 1º\Segundo Parcial\fondo 4.jpg")
-plataforma_2 = crear_plataforma(True, ((300, 620)), 1010, 624, r"2C 1º\Segundo Parcial\fondo 4.jpg")
+piso = crear_plataforma(True, ((1300,668)), 0, 657 , r"fondo 4.jpg")
+plataforma_1 = crear_plataforma(True, ((280, 624)), 356, 624, r"fondo 4.jpg")
+plataforma_2 = crear_plataforma(True, ((300, 620)), 1010, 624, r"fondo 4.jpg")
  
 
 ############################################## PLATAFORMAS ####################################################################################################
@@ -77,7 +77,7 @@ rectangulo_personaje.y = y_inicial
 que_hace = "Quieto_Derecha"
 
 ############################################ CFG ##############################################################################################################
-flag_izquierda = False
+#flag_izquierda = False
 flag = True
 while flag:
     RELOJ.tick(FPS)
@@ -94,18 +94,19 @@ while flag:
 
     if teclas[py.K_RIGHT]:
         robot.que_hace = "Derecha"
+        robot.ultimo_movimiento = "Derecha"
+        
     elif teclas[py.K_LEFT]:
-        robot.que_hace == "Izquierda"
-        flag_izquierda == True
+        robot.que_hace = "Izquierda"
+        robot.ultimo_movimiento = "Izquierda" 
     elif(teclas[py.K_SPACE]):
         robot.que_hace = "Salta"
 
-
     else:
-        if flag_izquierda == True: 
+         if robot.ultimo_movimiento == "Derecha":
+             robot.que_hace = "Quieto_Derecha"
+         elif robot.ultimo_movimiento == "Izquierda": 
             robot.que_hace = "Quieto_Izquierda"
-        else: 
-            robot.que_hace = "Quieto_Derecha"
 
     PANTALLA.blit(fondo,(0,0))
     robot.verificar_colision_enemigo(lista_enemigos, PANTALLA)
@@ -122,6 +123,8 @@ if obtener_modo():
 
          for plataforma in plataformas:
              py.draw.rect(PANTALLA, "red", plataforma["rectangulo"], 3)
+
+
 
 
 py.quit()

@@ -1,4 +1,7 @@
 from Config import *
+screen_width = 1300
+screen_height = 700
+
 
 class Enemigo:
     def __init__(self, animaciones) -> None:
@@ -49,21 +52,5 @@ class Enemigo:
             else:
                 self.esta_saltando = True
 
-    def checkeo_sprite_choca_borde_pantalla(self, pantalla):
-        x = self.rectangulo_principal.x
-        y = self.rectangulo_principal.y
-        width = self.rectangulo_principal.width
-        height = self.rectangulo_principal.height
-
-        return (x <= 0 or x + width >= screen_width or
-            y <= 0 or y + height >= screen_height)
-
-    def rebote_sprite(self):
-        self.desplazamiento_x, self.desplazamiento_y = self.velocidad
-
-        rebote_velocidad = -1 * self.desplazamiento_x 
-
-        if self.rectangulo_principal.x <= 0 or self.rectangulo_principal.x + sprite.rectangulo_width >= screen_width: 
-            self.velocidad = (rebote_velocidad, self.desplazamiento_y)
-
-
+  #  def checkeo_sprite_choca_borde_pantalla(self, pantalla):
+   #     if pos.x

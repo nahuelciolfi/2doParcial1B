@@ -10,6 +10,8 @@ class Personaje:
         self.rectangulo_principal.y = pos_y
         self.velocidad = velocidad
 
+        self.rect = py.Rect(pos_x, pos_y, 64, 64)
+
         self.que_hace = "Quieto"
         self.contador_pasos = 0
         self.animacion_actual = self.animaciones["Quieto_Derecha"]
@@ -19,7 +21,8 @@ class Personaje:
         self.potencia_salto = -15
         self.limite_velocidad_salto = 15
         self.gravedad = 1
-        self.esta_saltando =False
+        self.esta_saltando = False
+        self.ultimo_movimiento = ""
 
     
     def actualizar(self, pantalla, piso):
@@ -36,13 +39,14 @@ class Personaje:
                     self.animar(pantalla)
                 self.caminar(pantalla)
 
-            case "Quieto":
-                #if flag_izquierda == False:
+            case "Quieto_Derecha":
                     self.animacion_actual  = self.animaciones["Quieto_Derecha"]
                     self.animar(pantalla)
-                #else: 
-                #    self.animacion_actual = self.animaciones["Quieto_Izquierda"]
-                #    self.animar(pantalla)
+
+
+            case "Quieto_Izquierda":
+                    self.animacion_actual  = self.animaciones["Quieto_Izquierda"]
+                    self.animar(pantalla)
             case "Salta":
                 if not self.esta_saltando:
                     self.esta_saltando = True
@@ -64,19 +68,18 @@ class Personaje:
         velocidad_actual = self.velocidad
         if self.que_hace == "Izquierda":
             velocidad_actual *= -1
-
-        
         nueva_x = self.rectangulo_principal.x + velocidad_actual
+
         if nueva_x >= 0 and nueva_x <= pantalla.get_width() - self.rectangulo_principal.width:
             self.rectangulo_principal.x += velocidad_actual
-    
+        
     def aplicar_gravedad(self, pantalla, plataformas):
         if self.esta_saltando:
             self.animar(pantalla)
             self.rectangulo_principal.y += self.desplazamiento_y
             if self.desplazamiento_y + self.gravedad < self.limite_velocidad_salto:
                 self.desplazamiento_y += self.gravedad
-            
+                
         for piso in plataformas:
             if self.rectangulo_principal.colliderect(piso["rectangulo"]):
                 self.desplazamiento_y = 0
@@ -87,17 +90,16 @@ class Personaje:
                 self.esta_saltando = True
 
     def verificar_colision_enemigo(self,lista_enemigos:list["Enemigo"], pantalla):
-        for enemigo in lista_enemigos:
-            if self.rectangulo_principal.colliderect(enemigo.rectangulo_principal):
+         for enemigo in lista_enemigos:
+             if self.rectangulo_principal.colliderect(enemigo.rectangulo_principal):
+                 enemigo.muriendo = True
+                 enemigo.rectangulo_principal.y += 20
+
+                 enemigo.animacion_actual = enemigo.animaciones["Muere"]
+                 enemigo.animar(pantalla)
+                 # if enemigo.rectangulo_principal.y >= pantalla.get
                 
-                enemigo.muriendo = True
-                enemigo.rectangulo_principal.y += 20
-
-                enemigo.animacion_actual = enemigo.animaciones["aplasta"]
-                enemigo.animar(pantalla)
-                # if enemigo.rectangulo_principal.y >= pantalla.get
-        
-
+    
 '''
 Caracteristicas
 rectangulo

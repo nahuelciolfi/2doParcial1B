@@ -15,16 +15,7 @@ def rotar_imagen(lista_original,flip_x,flip_y):
     
     
 ################################## SPRITE PJ ###############################################################################################
-personaje_quieto_derecha = [py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (1).png"), 
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (2).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (3).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (4).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (5).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (6).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (7).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (8).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (9).png"),
-                    py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (10).png")]
+personaje_quieto_derecha = [py.image.load(r"2C 1º\Segundo Parcial\Sprites Robot\Idle (1).png")]
 
 personaje_quieto_izquierda = rotar_imagen(personaje_quieto_derecha, True, False)
 
